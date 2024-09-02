@@ -3,6 +3,8 @@ package com.lino.dslearnbds.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +21,9 @@ public class Offer implements Serializable {//Responsavel pela oferta de cursos
     @ManyToOne//Uma oferta possui um curso e um curso possui varias ofertas
     @JoinColumn(name = "course_id")//Mapeando a chave estrangeira
     private Course course;//Uma oferta vai ter um curso
+
+    @OneToMany(mappedBy = "offer")//Uma oferta tem zero ou varios recursos
+    private List<Resource> resources = new ArrayList<>();
 
     public Offer() {
     }
@@ -69,6 +74,10 @@ public class Offer implements Serializable {//Responsavel pela oferta de cursos
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
     }
 
     @Override
