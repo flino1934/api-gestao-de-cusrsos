@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_role")
-public class Role implements Serializable {
+public class Role implements Serializable {//Responsavel pelos papeis do usuario
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

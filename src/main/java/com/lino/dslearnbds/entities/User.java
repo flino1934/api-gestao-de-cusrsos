@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_user")
-public class User implements Serializable {//Vai ser a entidade central
+public class User implements Serializable {//Vai ser a entidade central, responsavel por ter os dados do usuario
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class User implements Serializable {//Vai ser a entidade central
     private String password;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)//Um usuario pode ter muitos roles e uma role pode ter varios usuarios
+    @ManyToMany(fetch = FetchType.EAGER)//Um usuario pode ter uma ou muitas roles e uma role pode ter varios usuarios
     @JoinTable(name = "tb_user_role",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -69,6 +69,10 @@ public class User implements Serializable {//Vai ser a entidade central
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
