@@ -1,16 +1,12 @@
 package com.lino.dslearnbds.entities;
 
-import com.lino.dslearnbds.entities.enums.ResourceType;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_resource")
-public class Resource implements Serializable {//Essa classe é referente aos recurso que o curso tem ex: trilha, suporte, live, bonus
+@Table(name = "tb_section")
+public class Section implements Serializable {//É uma classse responsavel pelos capitulos
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,25 +15,25 @@ public class Resource implements Serializable {//Essa classe é referente aos re
     private String description;
     private Integer position;
     private String imgUri;
-    private ResourceType type;
 
-    @ManyToOne//Resouce vai ter no minimo uma oferta e no maximo uma
-    @JoinColumn(name = "offer_id")//Mapeando a chave estrangeira
-    private Offer offer;
+    @ManyToOne//Uma seseção deve ter ao menos um recurso e no maximo
+    @JoinColumn(name = "resource_id")
+    private Resource resource;
+    @ManyToOne//Pode ter um ou mais capitulos ele tem uma dependencia com ele mesmo
+    @JoinColumn(name = "prerequisite_id")
+    private Section prerequisite;//Vai ser referente ao pré requisito para um capitulo x
 
-    @OneToMany(mappedBy = "resource")//Um recurso pode estar em varias ou nenhuma seção
-    private List<Section> sections = new ArrayList<>();
-    public Resource() {
+    public Section() {
     }
 
-    public Resource(Long id, String title, String description, Integer position, String imgUri, ResourceType type, Offer offer) {
+    public Section(Long id, String title, String description, Integer position, String imgUri, Resource resource, Section prerequisite) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.position = position;
         this.imgUri = imgUri;
-        this.type = type;
-        this.offer = offer;
+        this.resource = resource;
+        this.prerequisite = prerequisite;
     }
 
     public Long getId() {
@@ -80,32 +76,28 @@ public class Resource implements Serializable {//Essa classe é referente aos re
         this.imgUri = imgUri;
     }
 
-    public ResourceType getType() {
-        return type;
+    public Resource getResource() {
+        return resource;
     }
 
-    public void setType(ResourceType type) {
-        this.type = type;
+    public Section getPrerequisite() {
+        return prerequisite;
     }
 
-    public Offer getOffer() {
-        return offer;
+    public void setPrerequisite(Section prerequisite) {
+        this.prerequisite = prerequisite;
     }
 
-    public void setOffer(Offer offer) {
-        this.offer = offer;
-    }
-
-    public List<Section> getSections() {
-        return sections;
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Resource resource = (Resource) o;
-        return Objects.equals(id, resource.id);
+        Section section = (Section) o;
+        return Objects.equals(id, section.id);
     }
 
     @Override
