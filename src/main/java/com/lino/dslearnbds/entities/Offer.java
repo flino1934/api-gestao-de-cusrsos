@@ -15,7 +15,9 @@ public class Offer implements Serializable {//Responsavel pela oferta de cursos
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String edition;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant startMoment;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant endMoment;
 
     @ManyToOne//Uma oferta possui um curso e um curso possui varias ofertas
