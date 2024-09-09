@@ -22,7 +22,7 @@ public class Lesson implements Serializable {//Estq relacionada as aulas, ele po
     private Section section;//Vai ter uma seção obrigatoriamente
 
     @ManyToMany(fetch = FetchType.LAZY)//Uma lesson pode estar varios usuarios assim como varios usuarios em uma tarefa
-    @JoinTable(name = "tb_lesson_done",
+    @JoinTable(name = "tb_lessons_done",
     joinColumns = @JoinColumn(name = "lesson_id"),
     inverseJoinColumns = {//Como esta usando chave composta o inverse joincolun ficou dessa maneira
             @JoinColumn(name = "user_id"),

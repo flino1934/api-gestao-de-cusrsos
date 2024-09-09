@@ -4,7 +4,9 @@ import com.lino.dslearnbds.entities.pk.EnrrolmentPK;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_enrollment")
@@ -18,6 +20,9 @@ public class Enrrollment {//Responsavel pela matricula
     private Instant refundMoment;
     private boolean available;
     private boolean onlyUpdate;//para saber se ele pode receber uma atualização do curso
+
+    @ManyToMany(mappedBy = "enrrollmentsDone")
+    private Set<Lesson> lessonsDone = new HashSet<>();
 
     public Enrrollment() {
     }
@@ -78,6 +83,10 @@ public class Enrrollment {//Responsavel pela matricula
 
     public void setOnlyUpdate(boolean onlyUpdate) {
         this.onlyUpdate = onlyUpdate;
+    }
+
+    public Set<Lesson> getLessonsDone() {
+        return lessonsDone;
     }
 
     @Override
