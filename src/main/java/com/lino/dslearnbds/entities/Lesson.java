@@ -30,6 +30,9 @@ public class Lesson implements Serializable {//Estq relacionada as aulas, ele po
     })
     private Set<Enrrollment> enrrollmentsDone = new HashSet<>();//Para verificar qual aluno ja finalizou a aula
 
+    @OneToMany
+    private Set<Deliver> delivers = new HashSet<>();
+
     public Lesson() {
     }
 
